@@ -1,9 +1,18 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+
 <h1>Hello blog <h1>
+
+<!--<h2>Sankalp has written {{ blogs.count }} blogs </h2>-->
+<!-- better way to check for singular or plural -->
+<h2>Sankalp has written {{ blogs.count }} blog{{ blogs.count|pluralize }} </h2>
 
   {% for blog in blogs %}
 
-  <h2>{{ blog.title }}</h2>
-  {{ blog.pub_date }}
-  <p>{{ blog.body }}</p>
+  <a href="{% url 'blog:detail' blog.id %}"><h2>{{ blog.title }}</h2></a>
+  <h5>{{ blog.pub_date }}<h5>
+  <p>{{ blog.body|striptags|truncatechars:100 }}</p>
 
   {% endfor %}
+{% endblock %}
